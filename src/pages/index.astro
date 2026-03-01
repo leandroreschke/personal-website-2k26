@@ -1,17 +1,163 @@
 ---
+import Layout from "../layouts/Layout.astro";
+import TerminalLine from "../components/TerminalLine.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
+import FontSizeSelector from "../components/FontSizeSelector.astro";
 
+const portfolio = {
+  name: "LEANDRO RESCHKE",
+  status: "AVAILABLE FOR WORK",
+  roles: ["SENIOR DESIGN ENGINEER"],
+  description:
+    "I make things because my brain gets itchy if I don’t. \nI chase calm, minimal vibes, and I’m currently in a committed relationship with blueberry lemonade tea 🫐🍋☕✨",
+  projects: [
+    { name: "LOTUS - Life Companion App", url: "#" },
+    { name: "RSLIDES", url: "#" },
+    { name: "POMIMI", url: "#" },
+  ],
+  email: "HELLO@LEANDRORESCHKE.COM",
+  socials: [{ name: "GITHUB", url: "https://github.com/leandroreschke" }],
+};
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout
+  title={`${portfolio.name} - Minimal CLI Portfolio`}
+  description="A minimalistic portfolio built with Astro."
+>
+  <header>
+    <div class="header-row">
+      <h1>{portfolio.name}</h1>
+      <div class="controls">
+        <FontSizeSelector />
+        <ThemeToggle />
+      </div>
+    </div>
+    <div class="status">
+      <span class="indicator"></span>
+      <span class="label">{portfolio.status}</span>
+    </div>
+  </header>
+
+  <section class="intro">
+    <TerminalLine>
+      <span class="text-primary">{portfolio.roles[0]}</span>
+    </TerminalLine>
+    <TerminalLine>
+      <p class="description">
+        {portfolio.description}
+      </p>
+    </TerminalLine>
+  </section>
+
+  <section class="projects">
+    {
+      portfolio.projects.map((project) => (
+        <TerminalLine>
+          <a href={project.url} class="project-link">
+            {project.name}
+          </a>
+        </TerminalLine>
+      ))
+    }
+  </section>
+
+  <section class="contact">
+    <TerminalLine>
+      <a href={`mailto:${portfolio.email.toLowerCase()}`} class="email-link">
+        {portfolio.email}
+      </a>
+    </TerminalLine>
+  </section>
+
+  <nav class="socials">
+    {portfolio.socials.map((social) => <a href={social.url}>{social.name}</a>)}
+  </nav>
+
+  <TerminalLine isBlinkingCursor={true} />
+</Layout>
+
+<style>
+  header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  h1 {
+    color: var(--text-color);
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.8rem;
+    margin: 0;
+  }
+
+  .status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .indicator {
+    width: 0.375rem;
+    height: 0.375rem;
+    border-radius: 9999px;
+    background-color: #22c55e;
+  }
+
+  .label {
+    font-size: 0.625rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+
+  .intro,
+  .projects,
+  .contact {
+    margin-top: 1rem;
+  }
+
+  .project-link {
+    text-decoration: underline !important;
+    text-underline-offset: 4px !important;
+  }
+
+  .description {
+    font-size: 0.75rem;
+    line-height: 1.6;
+    font-weight: 300;
+    max-width: 24rem;
+    margin: 0;
+    color: var(--text-color);
+    white-space: pre-line;
+  }
+
+  .email-link {
+    display: block;
+    text-decoration: underline;
+    text-decoration-color: var(--primary-glow);
+    text-underline-offset: 4px;
+  }
+
+  .socials {
+    display: flex;
+    gap: 1rem;
+    padding-top: 1rem;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    text-decoration: underline;
+    text-decoration-color: var(--primary-glow);
+    text-underline-offset: 4px;
+  }
+
+  a {
+    transition: color 0.2s;
+  }
+</style>

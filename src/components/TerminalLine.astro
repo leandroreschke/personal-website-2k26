@@ -1,0 +1,50 @@
+---
+// TerminalLine.astro
+export interface Props {
+  text?: string;
+  isBlinkingCursor?: boolean;
+}
+
+const { text, isBlinkingCursor = false } = Astro.props;
+---
+
+<div class="terminal-line">
+  <span class="prompt">$</span>
+  {text && <span>{text}</span>}
+  <slot />
+  {isBlinkingCursor && <span class="cursor-blink" />}
+</div>
+
+<style>
+  .terminal-line {
+    display: flex;
+    align-items: baseline;
+    padding-top: 1rem;
+  }
+
+  .prompt {
+    color: var(--text-muted);
+    margin-right: 0.5rem;
+    line-height: 1.6;
+  }
+
+  .cursor-blink {
+    width: 0.5rem;
+    height: 1rem;
+    background-color: var(--primary);
+    opacity: 0.4;
+    display: inline-block;
+    margin-left: 0.25rem;
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    from,
+    to {
+      opacity: 0.4;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+</style>

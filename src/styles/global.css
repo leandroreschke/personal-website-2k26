@@ -1,0 +1,375 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100;0,200;0,300;0,400;0,700;1,100;1,200;1,300;1,400&family=Outfit:wght@100;200;300;400;500;600;700&display=swap');
+
+:root {
+  /* Colors */
+  --primary: #7d2cff;
+  /* Neon white (violet tint) */
+  --primary-glow: #7d2cff;
+  /* Vibrant Violet Glow */
+  --bg-color: #f3f4f6;
+  --text-color: #1e293b;
+  /* slate-800 for high contrast */
+  --text-muted: #64748b;
+  /* slate-500, passes AA vs f3f4f6 */
+  --grid-line: rgba(0, 0, 0, 0.05);
+
+  --background-light: #f3f4f6;
+  --background-dark: #121212;
+  --surface-dark: #1e1e1e;
+
+  --selection-bg: var(--primary);
+  --selection-text: #ffffff;
+
+  /* Font Sizes */
+  --font-size-base: 16px;
+  --font-size-scale: 1;
+  /* For normal, big, extra big */
+
+  /* Aura Glow Spectrum */
+  --glow-1: #fca5a5;
+  /* Red-300 */
+  --glow-2: #fdba74;
+  /* Orange-300 */
+  --glow-3: #fde047;
+  /* Yellow-300 */
+  --glow-4: #86efac;
+  /* Green-300 */
+  --glow-5: #93c5fd;
+  /* Blue-300 */
+  --glow-6: #d8b4fe;
+  /* Purple-300 */
+
+  /* Typography */
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Outfit', sans-serif;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html.dark {
+  --bg-color: var(--background-dark);
+  --text-color: #f8fafc;
+  /* slate-50 */
+  --text-muted: #94a3b8;
+  /* slate-400, passes AA vs 121212 */
+  --primary: #ffffff;
+  /* Neon white (fuchsia tint) */
+  --primary-glow: #7d2cff;
+  /* Vibrant Fuchsia Glow */
+  --grid-line: rgba(255, 255, 255, 0.03);
+  --glow-1: #7f1d1d;
+  /* Deep Red */
+  --glow-2: #7c2d12;
+  /* Deep Orange */
+  --glow-3: #713f12;
+  /* Deep Yellow */
+  --glow-4: #064e3b;
+  /* Deep Green */
+  --glow-5: #1e3a8a;
+  /* Deep Blue */
+  --glow-6: #4c1d95;
+  /* Deep Purple */
+}
+
+/* Base resets & typography */
+* {
+  box-sizing: border-box;
+}
+
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+html {
+  font-size: calc(var(--font-size-base) * var(--font-size-scale));
+  font-weight: 100;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  margin: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-mono);
+  overflow-x: hidden;
+  position: relative;
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+
+::selection {
+  background: var(--selection-bg);
+  color: var(--selection-text);
+}
+
+/* Typography styles */
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+.text-primary {
+  color: var(--primary);
+  text-shadow:
+    0 0 4px #fff,
+    0 0 11px #fff,
+    0 0 19px var(--primary-glow),
+    0 0 40px var(--primary-glow),
+    0 0 80px var(--primary-glow);
+  font-weight: 100;
+}
+
+/* Utilities from Stitch */
+.aura-container {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.aura-glow {
+  position: absolute;
+  width: 100vmax;
+  height: 100vmax;
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.2;
+}
+
+html.dark .aura-glow {
+  opacity: 0.35;
+}
+
+.glow-gradient {
+  background: radial-gradient(circle at center, var(--glow-1), var(--glow-2) 40%, transparent 70%);
+  animation: mesh-float 20s ease-in-out infinite alternate;
+}
+
+.glow-solid {
+  background: radial-gradient(circle at center, var(--primary), transparent 70%);
+  opacity: 0.15;
+  animation: mesh-float 25s ease-in-out infinite alternate-reverse;
+}
+
+.mesh-gradient {
+  position: fixed;
+  inset: -50%;
+  z-index: -2;
+  background:
+    radial-gradient(at 0% 0%, var(--glow-1) 0%, transparent 50%),
+    radial-gradient(at 50% 0%, var(--glow-2) 0%, transparent 50%),
+    radial-gradient(at 100% 0%, var(--glow-3) 0%, transparent 50%),
+    radial-gradient(at 0% 100%, var(--glow-4) 0%, transparent 50%),
+    radial-gradient(at 50% 100%, var(--glow-5) 0%, transparent 50%),
+    radial-gradient(at 100% 100%, var(--glow-6) 0%, transparent 50%);
+  opacity: 0.6;
+  filter: blur(40px);
+  animation: mesh-spin 120s linear infinite;
+}
+
+html.dark .mesh-gradient {
+  opacity: 0.12;
+  filter: blur(100px);
+}
+
+@keyframes mesh-spin {
+  from {
+    transform: rotate(0deg) scale(1.2);
+  }
+
+  to {
+    transform: rotate(360deg) scale(1.2);
+  }
+}
+
+@keyframes mesh-float {
+  0% {
+    transform: translate(0, 0) scale(1.1);
+    filter: hue-rotate(0deg);
+  }
+
+  50% {
+    transform: translate(10%, 15%) scale(1.2);
+    filter: hue-rotate(45deg);
+  }
+
+  100% {
+    transform: translate(-5%, -5%) scale(1.1);
+    filter: hue-rotate(-20deg);
+  }
+}
+
+@keyframes color-shift {
+  0% {
+    filter: hue-rotate(0deg) brightness(1);
+  }
+
+  50% {
+    filter: hue-rotate(90deg) brightness(1.2);
+  }
+
+  100% {
+    filter: hue-rotate(0deg) brightness(1);
+  }
+}
+
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+  transition: background-image 0.3s var(--ease);
+}
+
+.scanlines {
+  background: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0) 50%,
+      rgba(0, 0, 0, 0.02) 50%,
+      rgba(0, 0, 0, 0.02));
+  background-size: 100% 4px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+html.dark .scanlines {
+  background: linear-gradient(to bottom,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0) 50%,
+      rgba(255, 255, 255, 0.01) 50%,
+      rgba(255, 255, 255, 0.01));
+  opacity: 0.4;
+}
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+
+  from,
+  to {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Link transitions */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 180ms var(--ease);
+}
+
+a:hover {
+  color: var(--primary);
+}
+
+/* Layout Utilities */
+.container {
+  position: relative;
+  z-index: 20;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.5rem;
+  max-width: 32rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 3rem;
+  }
+}
+
+/* Corner borders */
+.corner {
+  position: fixed;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-color: #d1d5db;
+  /* gray-300 */
+  border-style: solid;
+  pointer-events: none;
+  z-index: 30;
+  border-width: 0;
+  transition: border-color 0.3s var(--ease);
+}
+
+html.dark .corner {
+  border-color: #4b5563;
+  /* gray-600 */
+}
+
+.corner-tl {
+  top: 1rem;
+  left: 1rem;
+  border-left-width: 1px;
+  border-top-width: 1px;
+}
+
+.corner-tr {
+  top: 1rem;
+  right: 1rem;
+  border-right-width: 1px;
+  border-top-width: 1px;
+}
+
+.corner-bl {
+  bottom: 1rem;
+  left: 1rem;
+  border-left-width: 1px;
+  border-bottom-width: 1px;
+}
+
+.corner-br {
+  bottom: 1rem;
+  right: 1rem;
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+}
+
+/* Control panel */
+.controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.custom-button {
+  background: transparent;
+  border: 1px solid var(--grid-line);
+  color: var(--text-color);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.custom-button:hover,
+.custom-button.active {
+  border-color: var(--primary);
+  color: var(--primary);
+}

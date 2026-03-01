@@ -1,0 +1,50 @@
+---
+// FontSizeSelector.astro
+---
+
+<div
+  class="font-size-selector"
+  style="display: flex; gap: 0.5rem; align-items: center;"
+>
+  <button
+    class="custom-button size-btn"
+    data-scale="1"
+    aria-label="Normal Font Size"
+    style="font-size: 12px;">A</button
+  >
+  <button
+    class="custom-button size-btn"
+    data-scale="1.25"
+    aria-label="Big Font Size"
+    style="font-size: 16px;">A</button
+  >
+</div>
+
+<script>
+  const setFontSize = (scale: string) => {
+    document.documentElement.style.setProperty("--font-size-scale", scale);
+    localStorage.setItem("font-scale", scale);
+
+    // Update active state
+    document.querySelectorAll(".size-btn").forEach((btn) => {
+      if (btn.getAttribute("data-scale") === scale) {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
+      }
+    });
+  };
+
+  const savedScale = localStorage.getItem("font-scale") || "1";
+  setFontSize(savedScale);
+
+  document.querySelectorAll(".size-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const target = e.currentTarget as HTMLButtonElement;
+      const scale = target.getAttribute("data-scale");
+      if (scale) {
+        setFontSize(scale);
+      }
+    });
+  });
+</script>

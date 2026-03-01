@@ -2,13 +2,15 @@
   "name": "smoggy-star",
   "type": "module",
   "version": "0.0.1",
+  "packageManager": "bun@1.3.10",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "dev": "bunx --bun astro dev",
+    "build": "bunx --bun astro build",
+    "preview": "bunx --bun astro preview",
+    "astro": "bunx --bun astro",
+    "deploy": "bun run build && bunx --bun wrangler pages deploy dist"
   },
   "dependencies": {
-    "astro": "^5.17.1"
+    "astro": "^5.18.0"
   }
 }
