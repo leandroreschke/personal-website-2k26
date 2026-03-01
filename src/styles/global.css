@@ -87,14 +87,15 @@ html {
 
 body {
   margin: 0;
-  min-height: 100vh;
-  margin: 0;
+  min-height: 100dvh;
   background-color: var(--bg-color);
   color: var(--text-color);
   font-family: var(--font-mono);
   overflow-x: hidden;
   position: relative;
   transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
@@ -121,7 +122,10 @@ body {
 /* Utilities from Stitch */
 .aura-container {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   overflow: hidden;
   z-index: -1;
   pointer-events: none;
@@ -155,7 +159,10 @@ html.dark .aura-glow {
 
 .mesh-gradient {
   position: fixed;
-  inset: -50%;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
   z-index: -2;
   background:
     radial-gradient(at 0% 0%, var(--glow-1) 0%, transparent 50%),
@@ -164,9 +171,11 @@ html.dark .aura-glow {
     radial-gradient(at 0% 100%, var(--glow-4) 0%, transparent 50%),
     radial-gradient(at 50% 100%, var(--glow-5) 0%, transparent 50%),
     radial-gradient(at 100% 100%, var(--glow-6) 0%, transparent 50%);
-  opacity: 0.6;
+  opacity: 0.25;
+  /* Reduced opacity for light mode to avoid muddiness */
   filter: blur(40px);
   animation: mesh-spin 120s linear infinite;
+  transform-origin: center center;
 }
 
 html.dark .mesh-gradient {
@@ -216,8 +225,11 @@ html.dark .mesh-gradient {
 }
 
 .grid-bg {
-  position: absolute;
-  inset: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-image:
     linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
@@ -284,12 +296,14 @@ a:hover {
 .container {
   position: relative;
   z-index: 20;
-  height: 100vh;
+  min-height: 100dvh;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 1.5rem;
+  padding-top: calc(1.5rem + env(safe-area-inset-top));
+  padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
   max-width: 32rem;
   margin: 0 auto;
 }
