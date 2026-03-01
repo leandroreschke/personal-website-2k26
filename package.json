@@ -8,7 +8,7 @@
     "build": "bunx --bun astro build",
     "preview": "bunx --bun astro preview",
     "astro": "bunx --bun astro",
-    "deploy": "bun run build && bunx --bun wrangler pages deploy dist --project-name personal-website-2k26 --branch main --commit-dirty=true"
+    "deploy": "bun run build && bunx --bun wrangler pages deploy dist --project-name personal-website-2k26 --branch main --skip-caching"
   },
   "dependencies": {
     "astro": "^5.18.0"
