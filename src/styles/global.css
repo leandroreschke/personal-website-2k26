@@ -231,7 +231,7 @@ body {
   background-image:
     linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-  background-size: 40px 40px;
+  background-size: var(--grid-size) var(--grid-size);
   pointer-events: none;
   z-index: 0;
   transition: background-image 0.3s var(--ease);
@@ -255,17 +255,6 @@ body {
   contain: strict;
 }
 
-html:has(#state-theme-dark:checked) .pixel-unit {
-  width: 60px;
-  height: 60px;
-  background: rgba(125, 44, 255, 0.25);
-  box-shadow:
-    60px 0 0 0 rgba(125, 44, 255, 0.1),
-    -60px 0 0 0 rgba(125, 44, 255, 0.1),
-    0 60px 0 0 rgba(125, 44, 255, 0.1),
-    0 -60px 0 0 rgba(125, 44, 255, 0.1);
-  filter: drop-shadow(0 0 4px rgba(125, 44, 255, 0.3));
-}
 
 html:has(#state-theme-dark:checked) .scanlines {
   background: linear-gradient(to bottom,
@@ -358,15 +347,14 @@ html:has(#state-theme-dark:checked) .grid-pixel:hover {
   display: none;
 }
 
-html.dark .grid-bg {
+html:has(#state-theme-dark:checked) .grid-bg {
   background-image:
     linear-gradient(to right, rgba(125, 44, 255, 0.08) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(125, 44, 255, 0.08) 1px, transparent 1px);
-  background-size: 60px 60px;
 }
 
-html.dark .aura-container,
-html.dark .mesh-gradient {
+html:has(#state-theme-dark:checked) .aura-container,
+html:has(#state-theme-dark:checked) .mesh-gradient {
   display: none;
 }
 
@@ -443,7 +431,7 @@ a:hover {
   transition: border-color 0.3s var(--ease);
 }
 
-html.dark .corner {
+html:has(#state-theme-dark:checked) .corner {
   border-color: #4b5563;
   /* gray-600 */
 }
@@ -517,9 +505,6 @@ html.dark .corner {
   pointer-events: none;
 }
 
-html:has(#state-theme-dark:checked) .corner {
-  border-color: #4b5563;
-}
 
 html:has(#state-theme-dark:checked) .sun {
   display: block !important;

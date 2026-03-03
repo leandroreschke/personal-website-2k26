@@ -1,10 +1,4 @@
-User-agent: *
-Allow: /
-
-# Block AI data crawlers
-User-agent: GPTBot
-Disallow: /
-User-agent: CCBot
-Disallow: /
+# Your robots.txt is being managed by Cloudflare AI Audit/Crawl Control.
+# Only the sitemap is needed here to avoid redundancy.
 
 Sitemap: https://leandroreschke.com/sitemap.xml
