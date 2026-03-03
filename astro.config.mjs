@@ -5,11 +5,11 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   vite: {
     build: {
-      minify: 'esbuild',
+      minify: "esbuild",
     },
   },
   build: {
-    format: 'directory',
+    format: "directory",
   },
   devToolbar: {
     enabled: false,
@@ -17,5 +17,5 @@ export default defineConfig({
   image: {
     domains: [],
   },
-  output: 'static',
+  output: "static",
 });

@@ -1,6 +1,5 @@
 ---
 // Layout.astro
-import "../styles/global.css";
 import AuraBackground from "../components/AuraBackground.astro";
 
 export interface Props {
@@ -17,7 +16,7 @@ const {
 
 const canonicalURL = new URL(
   Astro.url.pathname,
-  Astro.site || "https://example.com",
+  Astro.site || "https://leandroreschke.com",
 );
 ---
 
@@ -48,6 +47,7 @@ const canonicalURL = new URL(
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon.png" />
+    <link rel="stylesheet" href="../styles/global.css" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />

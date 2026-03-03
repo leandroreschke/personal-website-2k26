@@ -1,16 +1,35 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100;0,200;0,300;0,400;0,700;1,100;1,200;1,300;1,400&family=Outfit:wght@100;200;300;400;500;600;700&display=swap');
+/* Self-hosted Fonts */
+@font-face {
+  font-family: 'Figtree';
+  src: url('/fonts/figtree-300.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Figtree';
+  src: url('/fonts/figtree-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Figtree';
+  src: url('/fonts/figtree-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   /* Colors */
   --primary: #7d2cff;
-  /* Neon white (violet tint) */
   --primary-glow: #7d2cff;
-  /* Vibrant Violet Glow */
   --bg-color: #f3f4f6;
   --text-color: #1e293b;
-  /* slate-800 for high contrast */
   --text-muted: #64748b;
-  /* slate-500, passes AA vs f3f4f6 */
   --grid-line: rgba(0, 0, 0, 0.05);
 
   --background-light: #f3f4f6;
@@ -31,22 +50,25 @@
 
   /* Aura Glow Spectrum */
   --glow-1: #fca5a5;
-  /* Red-300 */
   --glow-2: #fdba74;
-  /* Orange-300 */
   --glow-3: #fde047;
-  /* Yellow-300 */
   --glow-4: #86efac;
-  /* Green-300 */
   --glow-5: #93c5fd;
-  /* Blue-300 */
   --glow-6: #d8b4fe;
-  /* Purple-300 */
 
   /* Typography */
   --font-mono: 'JetBrains Mono',
+  ui-monospace,
+  SFMono-Regular,
+  Menlo,
+  Monaco,
+  Consolas,
+  "Liberation Mono",
+  "Courier New",
   monospace;
-  --font-sans: 'Outfit',
+  --font-sans: 'Figtree',
+  system-ui,
+  -apple-system,
   sans-serif;
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -318,7 +340,7 @@ html:has(#state-theme-dark:checked) {
   z-index: 1;
 }
 
-html.dark .grid-pixel:hover {
+html:has(#state-theme-dark:checked) .grid-pixel:hover {
   background-color: rgba(125, 44, 255, 0.25);
   box-shadow:
     var(--grid-size) 0 0 0 rgba(125, 44, 255, 0.1),
