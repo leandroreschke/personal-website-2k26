@@ -66,6 +66,22 @@ const canonicalURL = new URL(
     <title>{title}</title>
   </head>
   <body>
+    <!-- Pure CSS Global State -->
+    <input type="checkbox" id="state-theme-dark" class="hidden-state" />
+    <input
+      type="radio"
+      name="font-size"
+      id="state-font-normal"
+      class="hidden-state"
+      checked
+    />
+    <input
+      type="radio"
+      name="font-size"
+      id="state-font-big"
+      class="hidden-state"
+    />
+
     <AuraBackground />
 
     <main class="container">
