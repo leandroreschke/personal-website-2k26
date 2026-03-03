@@ -235,6 +235,7 @@ body {
   pointer-events: none;
   z-index: 0;
   transition: background-image 0.3s var(--ease);
+  contain: strict;
 }
 
 .scanlines {
@@ -251,6 +252,7 @@ body {
   z-index: 10;
   pointer-events: none;
   opacity: 0.5;
+  contain: strict;
 }
 
 html:has(#state-theme-dark:checked) .pixel-unit {
@@ -319,6 +321,9 @@ html:has(#state-theme-dark:checked) {
   z-index: 5;
   pointer-events: none;
   overflow: hidden;
+  /* Performance optimization for 10,000+ elements */
+  contain: strict;
+  content-visibility: auto;
 }
 
 .grid-pixel {
@@ -414,6 +419,8 @@ a:hover {
   margin: 0 auto;
   /* Allow mouse events to pass through to the background pixel grid */
   pointer-events: none;
+  /* Prevent background elements from shifting the main content */
+  contain: layout;
 }
 
 @media (min-width: 640px) {
