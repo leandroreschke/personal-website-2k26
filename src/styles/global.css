@@ -235,6 +235,7 @@ body {
     linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
   background-size: var(--grid-size) var(--grid-size);
+  background-position: 100px 100px;
   pointer-events: none;
   z-index: 0;
   transition: background-image 0.3s var(--ease);
@@ -309,7 +310,6 @@ html:has(#state-theme-dark:checked) .scanline-beam {
 }
 
 html:has(#state-theme-dark:checked) {
-  --grid-size: 60px;
   color-scheme: dark;
 }
 
