@@ -87,7 +87,13 @@ const canonicalURL = new URL(
   </head>
   <body>
     <!-- Pure CSS Global State -->
-    <input type="checkbox" id="state-theme-dark" class="hidden-state" />
+    <input
+      type="checkbox"
+      id="state-theme-dark"
+      class="hidden-state"
+      aria-hidden="true"
+      tabindex="-1"
+    />
     <input
       type="radio"
       name="font-size"
