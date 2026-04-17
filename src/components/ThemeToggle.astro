@@ -2,10 +2,12 @@
 // ThemeToggle.astro
 ---
 
-<label
-  for="state-theme-dark"
-  class="custom-button theme-toggle-label"
-  aria-label="Toggle dark mode"
+<button
+  type="button"
+  class="custom-button theme-toggle-button"
+  aria-label="Toggle color theme"
+  aria-pressed="false"
+  data-theme-toggle
 >
   <!-- Sun Icon -->
   <svg
@@ -45,11 +47,105 @@
   >
     <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
   </svg>
-</label>
+</button>
 
 <style>
-  .theme-toggle-label {
+  .theme-toggle-button {
     user-select: none;
-    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
   }
 </style>
+
+<script>
+  const themeToggle = document.querySelector("[data-theme-toggle]");
+  const themeInput = document.querySelector(
+    "#state-theme-dark",
+  ) as HTMLInputElement | null;
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  );
+
+  if (themeToggle instanceof HTMLButtonElement && themeInput) {
+    const syncPressedState = () => {
+      themeToggle.setAttribute("aria-pressed", String(themeInput.checked));
+    };
+
+    const setTheme = (nextChecked: boolean) => {
+      themeInput.checked = nextChecked;
+      syncPressedState();
+    };
+
+    const getToggleOrigin = (event: MouseEvent | KeyboardEvent) => {
+      const rect = themeToggle.getBoundingClientRect();
+
+      if (event instanceof MouseEvent) {
+        return { x: event.clientX, y: event.clientY };
+      }
+
+      return {
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2,
+      };
+    };
+
+    const animateThemeChange = async (event: MouseEvent | KeyboardEvent) => {
+      const nextChecked = !themeInput.checked;
+      const { x, y } = getToggleOrigin(event);
+      const endRadius = Math.hypot(
+        Math.max(x, window.innerWidth - x),
+        Math.max(y, window.innerHeight - y),
+      );
+
+      if (
+        typeof document.startViewTransition !== "function" ||
+        prefersReducedMotion.matches
+      ) {
+        setTheme(nextChecked);
+        return;
+      }
+
+      document.documentElement.classList.add("theme-transitioning");
+
+      const transition = document.startViewTransition(() => {
+        setTheme(nextChecked);
+      });
+
+      try {
+        await transition.ready;
+        document.documentElement.animate(
+          {
+            clipPath: [
+              `circle(0px at ${x}px ${y}px)`,
+              `circle(${endRadius}px at ${x}px ${y}px)`,
+            ],
+          },
+          {
+            duration: 650,
+            easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+            pseudoElement: "::view-transition-new(root)",
+          },
+        );
+      } finally {
+        transition.finished.finally(() => {
+          document.documentElement.classList.remove("theme-transitioning");
+        });
+      }
+    };
+
+    syncPressedState();
+
+    themeToggle.addEventListener("click", (event) => {
+      void animateThemeChange(event);
+    });
+
+    themeToggle.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") {
+        return;
+      }
+
+      event.preventDefault();
+      void animateThemeChange(event);
+    });
+  }
+</script>

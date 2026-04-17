@@ -1,5 +1,6 @@
 <div
   class="font-size-selector"
+  data-font-size-selector
   style="display: flex; gap: 0.5rem; align-items: center;"
 >
   <label
@@ -15,3 +16,42 @@
     style="font-size: 16px;">A</label
   >
 </div>
+
+<script>
+  const fontSizeSelector = document.querySelector("[data-font-size-selector]");
+  const fontSizeInputs = document.querySelectorAll(
+    'input[name="font-size"]',
+  ) as NodeListOf<HTMLInputElement>;
+
+  if (fontSizeSelector instanceof HTMLDivElement && fontSizeInputs.length > 0) {
+    const html = document.documentElement;
+    const motionClasses = ["font-size-grow", "font-size-shrink"];
+    let motionTimeout = 0;
+
+    const triggerMotion = (className: string) => {
+      window.clearTimeout(motionTimeout);
+      html.classList.remove(...motionClasses);
+      void html.offsetWidth;
+      html.classList.add(className);
+      motionTimeout = window.setTimeout(() => {
+        html.classList.remove(className);
+      }, 260);
+    };
+
+    fontSizeInputs.forEach((input) => {
+      input.addEventListener("change", (event) => {
+        const target = event.currentTarget;
+
+        if (!(target instanceof HTMLInputElement) || !target.checked) {
+          return;
+        }
+
+        triggerMotion(
+          target.id === "state-font-big"
+            ? "font-size-grow"
+            : "font-size-shrink",
+        );
+      });
+    });
+  }
+</script>
