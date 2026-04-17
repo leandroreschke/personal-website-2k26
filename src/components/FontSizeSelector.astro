@@ -26,16 +26,19 @@
   if (fontSizeSelector instanceof HTMLDivElement && fontSizeInputs.length > 0) {
     const html = document.documentElement;
     const motionClasses = ["font-size-grow", "font-size-shrink"];
+    const transitionClasses = ["font-size-transitioning"];
     let motionTimeout = 0;
 
     const triggerMotion = (className: string) => {
       window.clearTimeout(motionTimeout);
-      html.classList.remove(...motionClasses);
+      html.classList.remove(...motionClasses, ...transitionClasses);
       void html.offsetWidth;
+      html.classList.add(...transitionClasses);
       html.classList.add(className);
       motionTimeout = window.setTimeout(() => {
+        html.classList.remove(...transitionClasses);
         html.classList.remove(className);
-      }, 260);
+      }, 320);
     };
 
     fontSizeInputs.forEach((input) => {

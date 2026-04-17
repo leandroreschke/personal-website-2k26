@@ -145,89 +145,6 @@ body {
   font-weight: 100;
 }
 
-/* Utilities from Stitch */
-.aura-container {
-  position: fixed;
-  inset: -100px;
-  background-color: var(--bg-color);
-  transition:
-    background-color 0.3s var(--ease),
-    opacity 0.3s var(--ease);
-  overflow: hidden;
-  z-index: -1;
-  pointer-events: none;
-}
-
-.aura-glow {
-  position: absolute;
-  width: 100vmax;
-  height: 100vmax;
-  border-radius: 50%;
-  filter: blur(120px);
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.2;
-}
-
-.glow-gradient {
-  background: radial-gradient(circle at center, var(--glow-1), var(--glow-2) 40%, transparent 70%);
-  animation: mesh-float 20s ease-in-out infinite alternate;
-}
-
-.glow-solid {
-  background: radial-gradient(circle at center, var(--primary), transparent 70%);
-  opacity: 0.15;
-  animation: mesh-float 25s ease-in-out infinite alternate-reverse;
-}
-
-.mesh-gradient {
-  position: fixed;
-  top: -50%;
-  left: -50%;
-  right: -50%;
-  bottom: -50%;
-  z-index: -2;
-  background:
-    radial-gradient(at 0% 0%, var(--glow-1) 0%, transparent 50%),
-    radial-gradient(at 50% 0%, var(--glow-2) 0%, transparent 50%),
-    radial-gradient(at 100% 0%, var(--glow-3) 0%, transparent 50%),
-    radial-gradient(at 0% 100%, var(--glow-4) 0%, transparent 50%),
-    radial-gradient(at 50% 100%, var(--glow-5) 0%, transparent 50%),
-    radial-gradient(at 100% 100%, var(--glow-6) 0%, transparent 50%);
-  opacity: 0.25;
-  filter: blur(40px);
-  animation: mesh-spin 120s linear infinite;
-  transform-origin: center center;
-  transition: opacity 0.3s var(--ease);
-}
-
-@keyframes mesh-spin {
-  from {
-    transform: rotate(0deg) scale(1.2);
-  }
-
-  to {
-    transform: rotate(360deg) scale(1.2);
-  }
-}
-
-@keyframes mesh-float {
-  0% {
-    transform: translate(0, 0) scale(1.1);
-    filter: hue-rotate(0deg);
-  }
-
-  50% {
-    transform: translate(10%, 15%) scale(1.2);
-    filter: hue-rotate(45deg);
-  }
-
-  100% {
-    transform: translate(-5%, -5%) scale(1.1);
-    filter: hue-rotate(-20deg);
-  }
-}
-
 .grid-bg {
   position: fixed;
   inset: -100px;
@@ -363,11 +280,6 @@ html:has(#state-theme-dark:checked) .grid-bg {
   background-image:
     linear-gradient(to right, rgba(125, 44, 255, 0.08) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(125, 44, 255, 0.08) 1px, transparent 1px);
-}
-
-html:has(#state-theme-dark:checked) .aura-container,
-html:has(#state-theme-dark:checked) .mesh-gradient {
-  opacity: 0;
 }
 
 .cursor-blink {
@@ -572,13 +484,18 @@ html.font-size-bounce-down .container {
   animation: font-size-bounce-down 300ms cubic-bezier(0.22, 1.2, 0.36, 1);
 }
 
+html.font-size-transitioning .grid-bg,
+html.font-size-transitioning .scanlines,
+html.font-size-transitioning .scanline-beam {
+  animation-play-state: paused !important;
+  transition-duration: 0s !important;
+}
+
 html.theme-transitioning body,
-html.theme-transitioning .aura-container,
 html.theme-transitioning .grid-bg,
 html.theme-transitioning .corner,
 html.theme-transitioning .scanlines,
 html.theme-transitioning .scanline-beam,
-html.theme-transitioning .mesh-gradient,
 html.theme-transitioning a,
 html.theme-transitioning .custom-button,
 html.theme-transitioning .grid-pixel,
@@ -589,8 +506,6 @@ html.theme-transitioning {
 @media (prefers-reduced-motion: reduce) {
   html,
   body,
-  .aura-container,
-  .mesh-gradient,
   .grid-bg,
   .corner,
   a,
